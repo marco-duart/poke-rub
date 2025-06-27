@@ -11,15 +11,11 @@ export function usePokemonDetails(identifier: string | number) {
     const fetchPokemon = async () => {
       try {
         setLoading(true);
-        const params =
-          typeof identifier === 'number'
-            ? { id: identifier }
-            : { name: identifier };
-
-        const data = await PokemonService.getPokemonDetails(params);
+        const data = await PokemonService.getCompletePokemonData(identifier);
         setPokemon(data);
       } catch (err) {
-        setError('Pokémon not found');
+        setError('Pokémon não encontrado');
+        console.error(err);
       } finally {
         setLoading(false);
       }
