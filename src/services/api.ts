@@ -9,14 +9,3 @@ export const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-api.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
-    const customError = {
-      message: error.response?.data?.message || 'Erro desconhecido',
-      status: error.response?.status
-    };
-    return Promise.reject(customError);
-  }
-);
