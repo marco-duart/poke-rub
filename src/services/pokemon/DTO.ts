@@ -37,17 +37,42 @@ export namespace PokemonDTO {
         };
       },
     ];
+    evolutionChain?: EvolutionChain;
+    speciesData?: PokemonSpecies;
+  }
+
+  export interface PokemonSpecies {
+    id: number;
+    name: string;
+    evolution_chain: {
+      url: string;
+    };
+    evolves_from_species: {
+      name: string;
+      url: string;
+    } | null;
+  }
+
+  export interface EvolutionChain {
+    id: number;
+    chain: ChainLink;
+  }
+
+  export interface ChainLink {
+    is_baby: boolean;
+    species: {
+      name: string;
+      url: string;
+    };
+    evolves_to: ChainLink[];
   }
 
   export namespace GetPokemonDetails {
-    // Caso busque com id ou nome retorna Model ou null. Sem id e sem nome retorna lista de pokemons
     export type Params =
       | {
-          // https://pokeapi.co/api/v2/pokemon/${id}
           id: number;
         }
       | {
-          // https://pokeapi.co/api/v2/pokemon/${name} (Minúsculo)
           name: string;
         };
     export type Response = Model;
@@ -64,7 +89,7 @@ export namespace PokemonDTO {
       previous: string;
       results: {
         name: string;
-        url: string; // https://pokeapi.co/api/v2/pokemon/30/ equivalente ao link de buscar com GetPokemon
+        url: string;
       }[];
     };
   }
