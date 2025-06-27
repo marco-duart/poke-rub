@@ -16,7 +16,7 @@ export function usePokemonList(initialLimit = 20) {
       const data = await PokemonService.getPokemonList(limit);
       setPokemons(data.results);
     } catch (err) {
-      setError('Failed to load Pokémon list');
+      setError('Falha ao carregar a lista de Pokémon');
     } finally {
       setLoading(false);
     }
